@@ -5,6 +5,7 @@ import java.util.List;
 public class Mesa {
     public Long Mesa;
     public List<Silla> Silla;
+    //public int Estado;
 
     public Mesa(Long mesa){
         Mesa = mesa;
@@ -22,7 +23,7 @@ public class Mesa {
         Mesa = mesa;
     }
 
-    public List<com.iChair.mesas.Silla> getSilla() {
+    public List<Silla> getSilla() {
         return Silla;
     }
 
@@ -30,4 +31,11 @@ public class Mesa {
         Silla = silla;
     }
 
+    @Override
+    public String toString() {
+        return "Mesa{" +
+                "Mesa=" + Mesa +
+                ", Silla=" + Silla +
+                '}';
+    }
 }
