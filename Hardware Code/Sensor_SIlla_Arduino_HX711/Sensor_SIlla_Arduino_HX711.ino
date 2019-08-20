@@ -1,5 +1,6 @@
-#include <HX711_ADC.h> //Se incluye la librería del HX711.
-#include <SoftwareSerial.h> //Se incluye la librería para la comunicación serial entre el Arduino y ESP.
+//Sensor_Silla_Arduino_HX711.ino
+#include <HX711_ADC.h>
+#include <SoftwareSerial.h>
 
 HX711_ADC LoadCell(7,8); //Se establece los pines que recibirán la lectura del HX711.
 SoftwareSerial BT1(3,2); //Se establece la conexión serial entre el Arduino y el ESP8266.

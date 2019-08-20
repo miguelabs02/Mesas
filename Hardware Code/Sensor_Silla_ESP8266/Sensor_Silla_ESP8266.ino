@@ -1,5 +1,6 @@
-#include <ESP8266WiFi.h> //Se añade la librería para controlar el ESP8266.
-#include <SoftwareSerial.h> //Se incluye la librería para la comunicación serial entre el Arduino y ESP.
+//Sensor_Silla_ESP8266.ino
+#include <ESP8266WiFi.h>
+#include <SoftwareSerial.h>
 #include <FirebaseArduino.h> //Se incluye la librería para conectar con Firebase
 
 #ifndef STASSID
