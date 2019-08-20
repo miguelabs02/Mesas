@@ -7,7 +7,7 @@
     tools:context=".Main2Activity">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_mover"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="136dp"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:text="Desde"
-        app:layout_constraintBottom_toTopOf="@+id/editText4"
+        app:layout_constraintBottom_toTopOf="@+id/editTextDesde"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -44,7 +44,7 @@
         android:layout_height="24dp"
         android:layout_marginStart="32dp"
         android:text="Para"
-        app:layout_constraintBottom_toTopOf="@+id/editText5"
+        app:layout_constraintBottom_toTopOf="@+id/editTextPara"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -64,7 +64,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginBottom="24dp"
         android:text="Silla"
-        app:layout_constraintBottom_toTopOf="@+id/editText3"
+        app:layout_constraintBottom_toTopOf="@+id/editTextSilla"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -74,33 +74,33 @@
         android:layout_marginStart="24dp"
         android:layout_marginBottom="24dp"
         android:text="Silla"
-        app:layout_constraintBottom_toTopOf="@+id/editText3"
+        app:layout_constraintBottom_toTopOf="@+id/editTextSilla"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/editTextSilla"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginBottom="32dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/btn_mover"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/editTextDesde"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginBottom="52dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editText5"
+        app:layout_constraintBottom_toTopOf="@+id/editTextPara"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/editTextPara"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -111,36 +111,36 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btn_scanner3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
         android:text="Escanear"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/btn_mover"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editText3" />
+        app:layout_constraintStart_toEndOf="@+id/editTextSilla" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btn_scanner1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="108dp"
         android:layout_marginBottom="8dp"
         android:text="Escanear"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
-        app:layout_constraintStart_toEndOf="@+id/editText4"
+        app:layout_constraintBottom_toTopOf="@+id/btn_scanner2"
+        app:layout_constraintStart_toEndOf="@+id/editTextDesde"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.05" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btn_scanner2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="92dp"
         android:text="Escanear"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        app:layout_constraintStart_toEndOf="@+id/editText5" />
+        app:layout_constraintBottom_toTopOf="@+id/btn_scanner3"
+        app:layout_constraintStart_toEndOf="@+id/editTextPara" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
