@@ -34,6 +34,13 @@ public class Login extends AppCompatActivity {
         passw = new ArrayList<>();
         usuario = findViewById(R.id.editText2);
         password = findViewById(R.id.editText);
+        obtenerUsuarios();
+    }
+
+    /**
+     * Metodo que guarda los usuarios y clave en un arrayList del todos los nodos en la tabla "nodos".
+     */
+    public void obtenerUsuarios(){
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Usuario").child("0926698440");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -50,6 +57,11 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    /**
+     * Metodo del Botón ingresar para comparar las credenciales obtenidas en el meotod obtenerUsuarios()
+     * y los ingresados por el usuario a traves de los cuadros edit text.
+     * @param view
+     */
     public void ingresar(View view) {
         String user = usuario.getText().toString();
         String pass = password.getText().toString();

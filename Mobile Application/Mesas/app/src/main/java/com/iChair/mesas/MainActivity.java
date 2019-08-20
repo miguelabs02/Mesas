@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppTheme_NoActionBar);
         setContentView(R.layout.activity_main);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_sillas);
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -54,70 +55,26 @@ public class MainActivity extends AppCompatActivity {
                 SDStatusfin=0;
                 crearMesas(sillas);
                 new RecyclerView_Config().setConfig(mRecyclerView,MainActivity.this,sillas,mesas);
-
-                for (Mesa mesa: mesas) {
-                    int estado=0;
-                    for (Silla silla : RecyclerView_Config.items.get(mesas.indexOf(mesa)).getSilla()) {
-                        Log.e("TAG",silla.getEstado());
-                        if (silla.getEstado().equals("ocupado")) {
-                            estado++;
-                        } else{
-                            SDStatusfin ++;
-                        }
-                    }
-                    Log.e("TAG",String.valueOf(estado));
-                    if(estado==0){
-                        MSStatusfin ++;
-                        for (Item item : RecyclerView_Config.items) {
-                            if (mesa.getMesa().equals(item.getId_item())) {
-                                Toast.makeText(MainActivity.this, String.valueOf(item.getId_item()), Toast.LENGTH_SHORT).show();
-                                item.setImage_source(R.mipmap.mesa_desocupada);
-
-                            }
-                        }
-                    }
-                    else if (estado==RecyclerView_Config.items.get(mesas.indexOf(mesa)).getSilla().size()){
-                        for (Item item : RecyclerView_Config.items) {
-                            if (mesa.getMesa().equals(item.getId_item())) {
-                                Toast.makeText(MainActivity.this, String.valueOf(item.getId_item()), Toast.LENGTH_SHORT).show();
-                                item.setImage_source(R.mipmap.mesa_ocupada);
-
-                            }
-                        }
-                    }
-
-                    else {
-                        for (Item item : RecyclerView_Config.items) {
-                            if (mesa.getMesa().equals(item.getId_item())) {
-                                Toast.makeText(MainActivity.this, String.valueOf(item.getId_item()), Toast.LENGTH_SHORT).show();
-                                item.setImage_source(R.mipmap.mesa_semiocupada);
-
-                            }
-                        }
-
-                    }
-                }
-
+                estadoMesas(mesas,RecyclerView_Config.items);
+                /**
+                 * Se actualiza la cantidad de sillas y mesas disponibles a medida que existen cambios
+                 * en la base de datos.
+                 * Se setea los valores maximos correspondientes de mesa y silla disponible.
+                 */
                 Progressbar_MS= findViewById(R.id.progress_mesas);
-
                 //decimos cual es el maximo numero de mesas
                 Progressbar_MS.setMax(RecyclerView_Config.items.size());
                 Progressbar_SD=(ProgressBar) findViewById(R.id.progress_sillas);
-
                 //decimos cual es el maximo de la barra de sillas
                 Progressbar_SD.setMax(sillas.size());
-
                 num_sillas=findViewById(R.id.num_sillas);
                 num_mesas=findViewById(R.id.num_mesas);
-
-
                 //numero de sillas disponibles
-
-
                 //Setea el numero de sillas disponibles
                 num_sillas.setText(String.valueOf(SDStatusfin));
                 //Setea el numero de mesas disponibles
                 num_mesas.setText(String.valueOf(MSStatusfin));
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -132,10 +89,8 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         }
-
                     }
                 }).start();
-
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -150,22 +105,20 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         }
-
                     }
                 }).start();
-
-
             }
-
             @Override
             public void DataisUpdated() {
-
             }
         });
-
-
     }
 
+    /**
+     * Crea los objetos mesas de acuerdo al numéro diferentes de id que se obtienen de las sillas y
+     * se setea una lista de sillas en el objeto mesa correspondiente al mismo.
+     * @param sillas
+     */
     public void crearMesas(List<Silla> sillas){
         List<Silla> sillasl = new ArrayList<>();
         for(Silla silla :sillas){
@@ -185,14 +138,50 @@ public class MainActivity extends AppCompatActivity {
             mesas.get(id.indexOf(id_mesa)).setSilla(sillasl);
             sillasl.clear();
         }
-        for(Mesa mesa:mesas){
-            Log.e("TAG",mesas.toString());
-        }
     }
 
-    public void moverSillas(View v){
-        Intent i= new Intent(this,Main2Activity.class);
-        startActivity(i);
+    /**
+     * Analisis en tiempo real del estado de silla de las correspodientes mesas para establecer el
+     * estado de una mesa y asignarle una respectiva imagen que represente visualmente si esta
+     * ocupada.
+     * @param mesas
+     * @param items
+     */
+    public void estadoMesas(List<Mesa> mesas,List<Item> items){
+        for (Mesa mesa: mesas) {
+            int estado=0;
+            for (Silla silla : items.get(mesas.indexOf(mesa)).getSilla()) {
+                if (silla.getEstado().equals("ocupado")) {
+                    estado++;
+                } else{
+                    SDStatusfin ++;
+                }
+            }
+            if(estado==0){
+                MSStatusfin ++;
+                for (Item item : items) {
+                    if (mesa.getMesa().equals(item.getId_item())) {
+                        item.setImage_source(R.mipmap.mesa_desocupada);
+                    }
+                }
+            }
+            else if (estado==items.get(mesas.indexOf(mesa)).getSilla().size()){
+                for (Item item : items) {
+                    if (mesa.getMesa().equals(item.getId_item())) {
+                        item.setImage_source(R.mipmap.mesa_ocupada);
+                    }
+                }
+            }
+            else {
+                for (Item item : items) {
+                    if (mesa.getMesa().equals(item.getId_item())) {
+                        item.setImage_source(R.mipmap.mesa_semiocupada);
+                    }
+                }
+
+            }
+        }
+
     }
 }
 
