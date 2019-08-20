@@ -1,5 +1,5 @@
 #include <HX711_ADC.h> //Se incluye la librería del HX711.
-#include <SoftwareSerial.h> //Se incluye la librería para la comunicación serial.
+#include <SoftwareSerial.h> //Se incluye la librería para la comunicación serial entre el Arduino y ESP.
 
 HX711_ADC LoadCell(7,8); //Se establece los pines que recibirán la lectura del HX711.
 SoftwareSerial BT1(3,2); //Se establece la conexión serial entre el Arduino y el ESP8266.
@@ -8,17 +8,17 @@ boolean ocupado = false; //Se define una variable booleana para definir el estad
 int normal = 10; //Se define el valor por default que el sensor va a presentar a una carga igual a cero.
 
 void setup() {
-  float calValue = 1120.48;
+  float calValue = 1120.48; //Factor de calibración del HX711.
   Serial.begin(115200);
   BT1.begin(115200); //Se abre el puerto serial a 115200 baudios.
   LoadCell.begin();
-  long stabilisingtime = 2000; // tare preciscion can be improved by adding a few seconds of stabilising time
+  long stabilisingtime = 2000; // tare preciscion can be improved by adding a few seconds of stabilising time.
   LoadCell.start(stabilisingtime);
   if(LoadCell.getTareTimeoutFlag()) {
     Serial.println("Tare timeout, check MCU>HX711 wiring and pin designations");
   }
   else {
-    LoadCell.setCalFactor(calValue); // set calibration value (float)
+    LoadCell.setCalFactor(calValue); // set calibration value (float).
     Serial.println("Startup + tare is complete");
   }
 }
@@ -28,18 +28,18 @@ void loop() {
   hxreading = LoadCell.getData(); //Se toma la lectura actual del sensor.
   Serial.print("Load_cell output val: ");
   Serial.println(hxreading);
-  if(hxreading>normal && ocupado==false){
+  if(hxreading>normal && ocupado==false){ //Si la lectura actual sobrepasa el límite normal y el asiento esta desocupado(false) entra al bucle.
     Serial.println("- Asiento ocupado");
     Serial.println(hxreading);
-    ocupado = true;
-    BT1.print("1\n");
+    ocupado = true; //El estado del asiento cambia  a ocupado (true).
+    BT1.print("1\n"); //Se envia el valor de 1 al ESP por medio de la conexión serial.
     Serial.flush();
   } 
-  else if(hxreading<=normal && ocupado==true){
+  else if(hxreading<=normal && ocupado==true){ //Si la lectura actual es menor al límite normal y el asiento esta ocupado(true) entra al bucle.
     Serial.println("- Asiento desocupado");
     Serial.println(hxreading);
-    ocupado = false;
-    BT1.print("0\n");
+    ocupado = false; //El estado del asiento cambia  a desocupado (false).
+    BT1.print("0\n"); //Se envia el valor de 1 al ESP por medio de la conexión serial.
     Serial.flush();
   }
   delay(1000);
