@@ -25,6 +25,14 @@ public class RecyclerView_Config {
     private Item item;
     public static List<Item> items = new ArrayList<>();
 
+    /**
+     * Se setea la configuración necesaria para mostrar la información en tiempo real de la pantalla
+     * correspiende a los datos de sillas y mesas.
+     * @param recyclerView
+     * @param context
+     * @param sillas
+     * @param mesas
+     */
     public void setConfig(RecyclerView recyclerView, Context context, List<Silla> sillas, List<Mesa> mesas){
         mContext = context;
         createItems(mesas,sillas);
@@ -33,6 +41,11 @@ public class RecyclerView_Config {
         recyclerView.setAdapter(sillaAdapter);
     }
 
+    /**
+     * Se crean los items correspondientes de acuerda a las mesas y las sillas asignadas a cada mesa.
+     * @param mesas
+     * @param sillas
+     */
     public void createItems(List<Mesa> mesas,List<Silla> sillas){
         items.clear();
         for(Mesa mesa:mesas){
@@ -51,12 +64,19 @@ public class RecyclerView_Config {
 
     }
 
+    /**
+     * Clase interna diseñada para crear una View correspondiente para cada Mesa.
+     */
     class SillaView extends RecyclerView.ViewHolder{
         private TextView mMesa;
         private ListView listView;
         private ImageView imageView;
         private String key;
 
+        /**
+         * Constructor para la instancias de widgets utilizadas en el layout silla_list_item.
+         * @param parent
+         */
         public SillaView(ViewGroup parent){
             super(LayoutInflater.from(mContext).inflate(R.layout.silla_list_item,parent,false));
             mMesa = (TextView) itemView.findViewById(R.id.txt_mesa);
@@ -65,6 +85,13 @@ public class RecyclerView_Config {
 
         }
 
+        /**
+         * Metodo bind para designar a cada widget el valor correspondiente segun el Item creado.
+         * @param mesa
+         * @param image
+         * @param key
+         * @param sillas
+         */
         public void bind(Long mesa,int image,String key,List<Silla> sillas){
             String id = "Mesa " + mesa + " :";
             imageView.setImageResource(image);
@@ -74,6 +101,10 @@ public class RecyclerView_Config {
         }
     }
 
+    /**
+     * Adaptador del recycler view para la lista creada de Items dentro de la vista, que recorre
+     * la lista de items y la va agregando a la vista principa.
+     */
     class SillaAdapter extends RecyclerView.Adapter<SillaView>{
         private List<Mesa> Mesas;
         private List<Silla> Sillas;
@@ -106,6 +137,10 @@ public class RecyclerView_Config {
         }
     }
 
+    /**
+     * Adaptador de ListView que recorre la lista de sillas de un Item para colocarlos de manera
+     * consecutiva dentro del widget correspondiente.
+     */
     class ListAdapter extends BaseAdapter{
         private List<Silla> sillas;
 
